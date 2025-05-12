@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: kargo-helm
+  name: kargo-helm-flow
   namespace: argocd
 spec:
   clusterResourceWhitelist:
@@ -15,4 +15,4 @@ spec:
   - group: '*'
     kind: '*'
   sourceRepos:
-  - https://github.com/bartpaczkows/kargo-helm.git
+  - https://github.com/bartpaczkows/kargo-helm-flow.git

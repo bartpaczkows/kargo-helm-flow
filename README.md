@@ -121,3 +121,26 @@ Then refresh the Warehouse in the UI to detect the new Freight.
 
 Edit the `base/feature-flags.yaml` with a new setting. This will be detected
 by the `features` Warehouse as a promotable configuration.
+
+
+
+
+
+
+### full-color list for kargo.akuity.io/color annotaitons
+  red,
+  orange,
+  amber,
+  yellow,
+  lime,
+  green,
+  teal,
+  cyan,
+  sky,
+  blue,
+  violet,
+  purple,
+  fuchsia,
+  pink,
+  rose,
+  gray

@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: kargo-helm
+  name: kargo-helm-flow
   namespace: argocd
 spec:
   generators:
   - git:
-      repoURL: https://github.com/bartpaczkows/kargo-helm.git
+      repoURL: https://github.com/bartpaczkows/kargo-helm-flow.git
       revision: HEAD
       directories:
       - path: env/*
@@ -19,10 +19,10 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: kargo-helm-{{path.basename}}
-      project: kargo-helm
+      project: kargo-helm-flow
       source:
         path: charts/guestbook
-        repoURL: https://github.com/bartpaczkows/kargo-helm.git
+        repoURL: https://github.com/bartpaczkows/kargo-helm-flow.git
         helm:
           valueFiles:
           - "/env/{{path.basename}}/values.yaml"
