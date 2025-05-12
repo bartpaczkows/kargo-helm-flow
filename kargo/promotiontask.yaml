@@ -8,7 +8,7 @@ spec:
   - name: image
     value: ghcr.io/bartpaczkows/guestbook
   - name: repoURL
-    value: https://github.com/bartpaczkows/kargo-helm.git
+    value: https://github.com/bartpaczkows/kargo-helm-flow.git
   - name: branch
     value: main
   - name: envPath
