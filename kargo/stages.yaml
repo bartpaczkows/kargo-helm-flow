@@ -10,7 +10,12 @@ spec:
   requestedFreight:
   - origin:
       kind: Warehouse
-      name: config
+      name: guestbook
+    sources:
+      direct: true
+  - origin:
+      kind: Warehouse
+      name: features
     sources:
       direct: true
   promotionTemplate:
@@ -36,7 +41,12 @@ spec:
   requestedFreight:
   - origin:
       kind: Warehouse
-      name: config
+      name: guestbook
+    sources:
+      direct: true
+  - origin:
+      kind: Warehouse
+      name: features
     sources:
       direct: true
   promotionTemplate:
@@ -61,7 +71,12 @@ spec:
   requestedFreight:
   - origin:
       kind: Warehouse
-      name: config
+      name: guestbook
+    sources:
+      direct: true
+  - origin:
+      kind: Warehouse
+      name: features
     sources:
       direct: true
   promotionTemplate:
@@ -86,7 +101,12 @@ spec:
   requestedFreight:
   - origin:
       kind: Warehouse
-      name: config
+      name: guestbook
+    sources:
+      direct: true
+  - origin:
+      kind: Warehouse
+      name: features
     sources:
       direct: true
   promotionTemplate:
@@ -112,7 +132,16 @@ spec:
   requestedFreight:
   - origin:
       kind: Warehouse
-      name: config
+      name: guestbook
+    sources:
+      stages:
+        - kip1
+        - kip2
+        - kip3
+        - kip4
+  - origin:
+      kind: Warehouse
+      name: features
     sources:
       stages:
         - kip1

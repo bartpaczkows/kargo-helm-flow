@@ -84,7 +84,7 @@ This is a GitOps repository of a Kargo Helm example for getting started.
      --project kargo-helm \
      --git \
      --username bartpaczkows \
-     --repo-url https://github.com/bartpaczkows/kargo-helm.git
+     --repo-url https://github.com/bartpaczkows/kargo-helm-flow.git
    ```
 
    As part of the promotion process, Kargo requires privileges to commit changes
