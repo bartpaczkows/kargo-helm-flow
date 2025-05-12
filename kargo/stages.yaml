@@ -10,12 +10,7 @@ spec:
   requestedFreight:
   - origin:
       kind: Warehouse
-      name: guestbook
-    sources:
-      direct: true
-  - origin:
-      kind: Warehouse
-      name: features
+      name: config
     sources:
       direct: true
   promotionTemplate:
@@ -41,12 +36,7 @@ spec:
   requestedFreight:
   - origin:
       kind: Warehouse
-      name: guestbook
-    sources:
-      direct: true
-  - origin:
-      kind: Warehouse
-      name: features
+      name: config
     sources:
       direct: true
   promotionTemplate:
@@ -71,12 +61,7 @@ spec:
   requestedFreight:
   - origin:
       kind: Warehouse
-      name: guestbook
-    sources:
-      direct: true
-  - origin:
-      kind: Warehouse
-      name: features
+      name: config
     sources:
       direct: true
   promotionTemplate:
@@ -96,17 +81,12 @@ metadata:
   name: kip4
   namespace: kargo-helm
   annotations:
-    kargo.akuity.io/color: orange
+    kargo.akuity.io/color: purple
 spec:
   requestedFreight:
   - origin:
       kind: Warehouse
-      name: guestbook
-    sources:
-      direct: true
-  - origin:
-      kind: Warehouse
-      name: features
+      name: config
     sources:
       direct: true
   promotionTemplate:
@@ -127,21 +107,12 @@ metadata:
   name: proto
   namespace: kargo-helm
   annotations:
-    kargo.akuity.io/color: yellow
+    kargo.akuity.io/color: pink
 spec:
   requestedFreight:
   - origin:
       kind: Warehouse
-      name: guestbook
-    sources:
-      stages:
-        - kip1
-        - kip2
-        - kip3
-        - kip4
-  - origin:
-      kind: Warehouse
-      name: features
+      name: config
     sources:
       stages:
         - kip1
@@ -160,101 +131,101 @@ spec:
           value: kargo-helm-proto
 
 
----
-apiVersion: kargo.akuity.io/v1alpha1
-kind: Stage
-metadata:
-  name: sbx
-  namespace: kargo-helm
-  annotations:
-    kargo.akuity.io/color: red
-spec:
-  requestedFreight:
-  - origin:
-      kind: Warehouse
-      name: guestbook
-    sources:
-      stages:
-        - proto
-  - origin:
-      kind: Warehouse
-      name: features
-    sources:
-      stages:
-        - proto
-  promotionTemplate:
-    spec:
-      steps:
-      - task:
-          name: promote
-        vars:
-        - name: envPath
-          value: env/sbx
-        - name: argocdApp
-          value: kargo-helm-sbx
+# ---
+# apiVersion: kargo.akuity.io/v1alpha1
+# kind: Stage
+# metadata:
+#   name: sbx
+#   namespace: kargo-helm
+#   annotations:
+#     kargo.akuity.io/color: lime
+# spec:
+#   requestedFreight:
+#   - origin:
+#       kind: Warehouse
+#       name: guestbook
+#     sources:
+#       stages:
+#         - proto
+#   - origin:
+#       kind: Warehouse
+#       name: features
+#     sources:
+#       stages:
+#         - proto
+#   promotionTemplate:
+#     spec:
+#       steps:
+#       - task:
+#           name: promote
+#         vars:
+#         - name: envPath
+#           value: env/sbx
+#         - name: argocdApp
+#           value: kargo-helm-sbx
 
----
-apiVersion: kargo.akuity.io/v1alpha1
-kind: Stage
-metadata:
-  name: pre
-  namespace: kargo-helm
-  annotations:
-    kargo.akuity.io/color: red
-spec:
-  requestedFreight:
-  - origin:
-      kind: Warehouse
-      name: guestbook
-    sources:
-      stages:
-        - sbx
-  - origin:
-      kind: Warehouse
-      name: features
-    sources:
-      stages:
-        - sbx
-  promotionTemplate:
-    spec:
-      steps:
-      - task:
-          name: promote
-        vars:
-        - name: envPath
-          value: env/pre
-        - name: argocdApp
-          value: kargo-helm-pre
+# ---
+# apiVersion: kargo.akuity.io/v1alpha1
+# kind: Stage
+# metadata:
+#   name: pre
+#   namespace: kargo-helm
+#   annotations:
+#     kargo.akuity.io/color: gray
+# spec:
+#   requestedFreight:
+#   - origin:
+#       kind: Warehouse
+#       name: guestbook
+#     sources:
+#       stages:
+#         - sbx
+#   - origin:
+#       kind: Warehouse
+#       name: features
+#     sources:
+#       stages:
+#         - sbx
+#   promotionTemplate:
+#     spec:
+#       steps:
+#       - task:
+#           name: promote
+#         vars:
+#         - name: envPath
+#           value: env/pre
+#         - name: argocdApp
+#           value: kargo-helm-pre
 
----
-apiVersion: kargo.akuity.io/v1alpha1
-kind: Stage
-metadata:
-  name: prod
-  namespace: kargo-helm
-  annotations:
-    kargo.akuity.io/color: red
-spec:
-  requestedFreight:
-  - origin:
-      kind: Warehouse
-      name: guestbook
-    sources:
-      stages:
-        - pre
-  - origin:
-      kind: Warehouse
-      name: features
-    sources:
-      stages:
-        - pre
-  promotionTemplate:
-    spec:
-      steps:
-      - task:
-          name: promote
-        vars:
-        - name: envPath
-          value: env/prod
-        - name: argocdApp
-          value: kargo-helm-prod
+# ---
+# apiVersion: kargo.akuity.io/v1alpha1
+# kind: Stage
+# metadata:
+#   name: prod
+#   namespace: kargo-helm
+#   annotations:
+#     kargo.akuity.io/color: blue
+# spec:
+#   requestedFreight:
+#   - origin:
+#       kind: Warehouse
+#       name: guestbook
+#     sources:
+#       stages:
+#         - pre
+#   - origin:
+#       kind: Warehouse
+#       name: features
+#     sources:
+#       stages:
+#         - pre
+#   promotionTemplate:
+#     spec:
+#       steps:
+#       - task:
+#           name: promote
+#         vars:
+#         - name: envPath
+#           value: env/prod
+#         - name: argocdApp
+#           value: kargo-helm-prod
