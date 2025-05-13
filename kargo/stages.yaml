@@ -217,7 +217,7 @@ spec:
     spec:
       steps:
       - task:
-          name: promote-push
+          name: promote-pr
         vars:
         - name: envPath
           value: env/prod
