@@ -232,7 +232,7 @@ metadata:
   name: sbx-fr3
   namespace: kargo-helm
   annotations:
-    kargo.akuity.io/color: lime
+    kargo.akuity.io/color: yellow
 spec:
   requestedFreight:
   - origin:
@@ -259,7 +259,7 @@ metadata:
   name: pre-fr3
   namespace: kargo-helm
   annotations:
-    kargo.akuity.io/color: gray
+    kargo.akuity.io/color: sky
 spec:
   requestedFreight:
   - origin:
@@ -286,7 +286,7 @@ metadata:
   name: prod-fr3
   namespace: kargo-helm
   annotations:
-    kargo.akuity.io/color: blue
+    kargo.akuity.io/color: fuchsia
 spec:
   requestedFreight:
   - origin:
@@ -313,7 +313,7 @@ metadata:
   name: sbx-us3
   namespace: kargo-helm
   annotations:
-    kargo.akuity.io/color: lime
+    kargo.akuity.io/color: purple
 spec:
   requestedFreight:
   - origin:
@@ -340,7 +340,7 @@ metadata:
   name: pre-us3
   namespace: kargo-helm
   annotations:
-    kargo.akuity.io/color: gray
+    kargo.akuity.io/color: violet
 spec:
   requestedFreight:
   - origin:
@@ -367,7 +367,7 @@ metadata:
   name: prod-us3
   namespace: kargo-helm
   annotations:
-    kargo.akuity.io/color: blue
+    kargo.akuity.io/color: teal
 spec:
   requestedFreight:
   - origin:
