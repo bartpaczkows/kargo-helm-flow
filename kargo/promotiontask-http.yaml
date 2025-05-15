@@ -53,8 +53,8 @@ spec:
       headers:
       - name: Content-Type
         value: application/json
-      body: |
+      body: | 
         { 
-          "message": "I have been triggered by Kargo promotion"
+          "message": "I have been triggered by Kargo" 
         }
 
