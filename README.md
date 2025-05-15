@@ -155,3 +155,28 @@ kargo get role kargo-admin --project kargo-helm --output yaml
 kargo get role kargo-developer \
   --as-kubernetes-resources -o yaml \
   --project kargo-helm
+
+
+
+### HOw to installa ArgoEvents on the cluster
+kubectl create namespace argo-events
+kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-events/stable/manifests/install.yaml
+kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-events/stable/manifests/install-validating-webhook.yaml
+kubectl apply -n argo-events -f https://raw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml
+
+## apply webhook EventSource
+kubectl apply -n argo-events -f argo-events/webhook.yaml
+kubectl -n=argo-events get eventsource
+kubectl -n=argo-events get service
+
+# check the pod name of the webhook you create
+kubectl -n=argo-events get pods
+
+# forward the port on the pod 
+kubectl -n=argo-events port-forward webhook-eventsource-mqwhl-576c7bb98c-jbj5d 12000:12000
+
+# check if webhook works
+curl -X POST http://localhost:12000/example -H "Content-Type: application/json" -d '{"message": "My first webhook"}'
+
+# create sensor 
+kubectl  -n=argo-events apply argo-events/sensor.yaml

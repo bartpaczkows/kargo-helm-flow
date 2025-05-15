@@ -136,13 +136,15 @@ spec:
     spec:
       steps:
       - task:
-          name: promote-sync
+          name: promote-http
         vars:
         - name: envPath
           value: env/proto
         - name: argocdApp
           value: kargo-helm-proto
-
+  verification:
+    analysisTemplates:
+    - name: integration-test-sucess
 
 ---
 apiVersion: kargo.akuity.io/v1alpha1
