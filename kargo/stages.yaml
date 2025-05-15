@@ -131,6 +131,7 @@ spec:
         - kip3
         - kip4
       availabilityStrategy: All  #OneOf (default):
+      #requiredSoakTime: 2m #
   promotionTemplate:
     spec:
       steps:
@@ -147,7 +148,7 @@ spec:
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
 metadata:
-  name: sbx
+  name: sbx-ca1
   namespace: kargo-helm
   annotations:
     kargo.akuity.io/color: lime
@@ -158,7 +159,7 @@ spec:
       name: config
     sources:
       stages:
-        - pre
+        - pre-ca1
   promotionTemplate:
     spec:
       steps:
@@ -166,15 +167,15 @@ spec:
           name: promote-sync
         vars:
         - name: envPath
-          value: env/sbx
+          value: env/sbx-ca1
         - name: argocdApp
-          value: kargo-helm-sbx
+          value: kargo-helm-sbx-ca1
 
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
 metadata:
-  name: pre
+  name: pre-ca1
   namespace: kargo-helm
   annotations:
     kargo.akuity.io/color: gray
@@ -193,15 +194,15 @@ spec:
           name: promote-sync
         vars:
         - name: envPath
-          value: env/pre
+          value: env/pre-ca1
         - name: argocdApp
-          value: kargo-helm-pre
+          value: kargo-helm-pre-ca1
 
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
 metadata:
-  name: prod
+  name: prod-ca1
   namespace: kargo-helm
   annotations:
     kargo.akuity.io/color: blue
@@ -212,7 +213,7 @@ spec:
       name: config
     sources:
       stages:
-        - sbx
+        - sbx-ca1
   promotionTemplate:
     spec:
       steps:
@@ -220,6 +221,168 @@ spec:
           name: promote-pr
         vars:
         - name: envPath
-          value: env/prod
+          value: env/prod-ca1
         - name: argocdApp
-          value: kargo-helm-prod
+          value: kargo-helm-prod-ca1
+
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: sbx-fr3
+  namespace: kargo-helm
+  annotations:
+    kargo.akuity.io/color: lime
+spec:
+  requestedFreight:
+  - origin:
+      kind: Warehouse
+      name: config
+    sources:
+      stages:
+        - pre-fr3
+  promotionTemplate:
+    spec:
+      steps:
+      - task:
+          name: promote-sync
+        vars:
+        - name: envPath
+          value: env/sbx-fr3
+        - name: argocdApp
+          value: kargo-helm-sbx-fr3
+
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: pre-fr3
+  namespace: kargo-helm
+  annotations:
+    kargo.akuity.io/color: gray
+spec:
+  requestedFreight:
+  - origin:
+      kind: Warehouse
+      name: config
+    sources:
+      stages:
+        - proto
+  promotionTemplate:
+    spec:
+      steps:
+      - task:
+          name: promote-sync
+        vars:
+        - name: envPath
+          value: env/pre-fr3
+        - name: argocdApp
+          value: kargo-helm-pre-fr3
+
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: prod-fr3
+  namespace: kargo-helm
+  annotations:
+    kargo.akuity.io/color: blue
+spec:
+  requestedFreight:
+  - origin:
+      kind: Warehouse
+      name: config
+    sources:
+      stages:
+        - sbx-fr3
+  promotionTemplate:
+    spec:
+      steps:
+      - task:
+          name: promote-pr
+        vars:
+        - name: envPath
+          value: env/prod-fr3
+        - name: argocdApp
+          value: kargo-helm-prod-fr3
+
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: sbx-us3
+  namespace: kargo-helm
+  annotations:
+    kargo.akuity.io/color: lime
+spec:
+  requestedFreight:
+  - origin:
+      kind: Warehouse
+      name: config
+    sources:
+      stages:
+        - pre-us3
+  promotionTemplate:
+    spec:
+      steps:
+      - task:
+          name: promote-sync
+        vars:
+        - name: envPath
+          value: env/sbx-us3
+        - name: argocdApp
+          value: kargo-helm-sbx-us3
+
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: pre-us3
+  namespace: kargo-helm
+  annotations:
+    kargo.akuity.io/color: gray
+spec:
+  requestedFreight:
+  - origin:
+      kind: Warehouse
+      name: config
+    sources:
+      stages:
+        - proto
+  promotionTemplate:
+    spec:
+      steps:
+      - task:
+          name: promote-sync
+        vars:
+        - name: envPath
+          value: env/pre-us3
+        - name: argocdApp
+          value: kargo-helm-pre-us3
+
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: prod-us3
+  namespace: kargo-helm
+  annotations:
+    kargo.akuity.io/color: blue
+spec:
+  requestedFreight:
+  - origin:
+      kind: Warehouse
+      name: config
+    sources:
+      stages:
+        - sbx-us3
+  promotionTemplate:
+    spec:
+      steps:
+      - task:
+          name: promote-pr
+        vars:
+        - name: envPath
+          value: env/prod-us3
+        - name: argocdApp
+          value: kargo-helm-prod-us3

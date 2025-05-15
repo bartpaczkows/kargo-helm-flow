@@ -142,3 +142,16 @@ by the `features` Warehouse as a promotable configuration.
   pink,
   rose,
   gray
+
+
+
+## how to list role of Kargo
+kargo get roles --project kargo-helm
+
+## how to get details of a specific role
+kargo get role kargo-admin --project kargo-helm --output yaml
+
+##  how to see details of SA, RoleBinding and Role of the Role you created
+kargo get role kargo-developer \
+  --as-kubernetes-resources -o yaml \
+  --project kargo-helm
