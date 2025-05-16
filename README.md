@@ -164,6 +164,18 @@ kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-events/stable/m
 kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-events/stable/manifests/install-validating-webhook.yaml
 kubectl apply -n argo-events -f https://raw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml
 
+
+## edit  argo-events-role allow creating workflows in the "argoproj.io" API group (this will resovle the problem of creating workflows in "argo" namespace as ArgoWorkflows will be running in "argo" namespace)
+kubectl get ClusterRole argo-events-role -o yaml
+```
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflows
+  verbs:
+  - create
+```
+
 ## apply webhook EventSource
 kubectl apply -n argo-events -f argo-events/webhook.yaml
 kubectl -n=argo-events get eventsource
@@ -178,5 +190,25 @@ kubectl -n=argo-events port-forward webhook-eventsource-mqwhl-576c7bb98c-jbj5d 1
 # check if webhook works
 curl -X POST http://localhost:12000/example -H "Content-Type: application/json" -d '{"message": "My first webhook"}'
 
-# create sensor 
+# create sensors
 kubectl  -n=argo-events apply argo-events/sensor.yaml
+kubectl -n=argo-events apply -f argo-events/sensor-2.yaml
+
+
+## ArgoWorkflow Installation
+# Install ArgoWorkflow
+kubectl create namespace argo
+kubectl apply -n argo -f "https://github.com/argoproj/argo-workflows/releases/download/v3.6.7/quick-start-minimal.yaml
+
+# Forward the Server's port to access the UI:
+kubectl -n argo-events port-forward service/argo-server 2746:2746
+
+# Navigate your browser to https://localhost:2746.
+https://localhost:2746
+
+# submit hello-world argo-workflow
+argo submit -n argo --watch ./argo-workflows/hello-world.yaml
+
+
+
+
