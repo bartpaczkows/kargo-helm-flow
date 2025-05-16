@@ -28,17 +28,31 @@ spec:
                   - name: message
                     # the value will get overridden by event payload from test-dep
                     value: hello world
+                  - name: stage
+                    value: default-stage   # This will be overridden by event payload
+                  - name: argocdApp
+                    value: default-app   # This will be overridden by event payload
                 templates:
                 - name: whalesay
                   inputs:
                     parameters:
                     - name: message
+                    - name: stage
+                    - name: argocdApp
                   container:
                     image: docker/whalesay:latest
                     command: [cowsay]
-                    args: ["{{inputs.parameters.message}}"]
+                    args: ["{{inputs.parameters.message}}\n Kargo stage: {{inputs.parameters.stage}}\n ArgoCDapp name: {{workflow.parameters.argocdApp}}"]
           parameters:
             - src:
                 dependencyName: test-dep
-                dataKey: body
+                dataKey: body.message
               dest: spec.arguments.parameters.0.value
+            - src:
+                dependencyName: test-dep
+                dataKey: body.stage_name
+              dest: spec.arguments.parameters.1.value
+            - src:
+                dependencyName: test-dep
+                dataKey: body.argoCDapp_name
+              dest: spec.arguments.parameters.2.value

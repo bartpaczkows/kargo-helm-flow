@@ -54,8 +54,10 @@ spec:
       - name: Content-Type
         value: application/json
       body: | 
-        { 
-          "message": "I have been triggered by Kargo",
-          "argocdApp": "${{ vars.argocdApp }}"
-        }
-
+        ${{ quote({
+          "message": "I've been triggered by a Kargo",
+          "stage_name": + ctx.stage,
+          "project_name": + ctx.project,
+          "argoCDapp_name": + vars.argocdApp,
+          "repoURL": + vars.repoURL,
+        }) }}
