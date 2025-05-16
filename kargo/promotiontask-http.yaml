@@ -55,6 +55,7 @@ spec:
         value: application/json
       body: | 
         { 
-          "message": "I have been triggered by Kargo" 
+          "message": "I have been triggered by Kargo",
+          "argocdApp": "${{ vars.argocdApp }}"
         }
 
