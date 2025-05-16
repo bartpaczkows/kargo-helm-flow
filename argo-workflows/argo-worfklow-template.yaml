@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: webhook-workflow-template
+  namespace: argo
+spec:
+  entrypoint: whalesay
+  arguments:
+    parameters:
+      - name: message
+        value: hello world
+      - name: stage
+        value: default-stage
+      - name: argocdApp
+        value: default-app
+  templates:
+    - name: whalesay
+      inputs:
+        parameters:
+          - name: message
+          - name: stage
+          - name: argocdApp
+      container:
+        image: docker/whalesay:latest
+        command: [cowsay]
+        args:
+          [
+            "{{inputs.parameters.message}}\n Kargo stage: {{inputs.parameters.stage}}\n ArgoCDapp name: {{workflow.parameters.argocdApp}}"
+          ]

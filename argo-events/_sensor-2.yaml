@@ -12,8 +12,8 @@ spec:
   triggers:
     - template:
         name: webhook-workflow-trigger
-        argoWorkflow:
-          operation: submit
+        k8s:
+          operation: create
           source:
             resource:
               apiVersion: argoproj.io/v1alpha1
@@ -22,6 +22,7 @@ spec:
                 generateName: webhook-
                 namespace: argo
               spec:
+                entrypoint: whalesay
                 arguments:
                   parameters: # the valueS will get overridden by event payload 
                   - name: message
@@ -29,9 +30,18 @@ spec:
                   - name: stage
                     value: default-stage   
                   - name: argocdApp
-                    value: default-app
-                workflowTemplateRef:
-                  name: webhook-workflow-template
+                    value: default-app   
+                templates:
+                - name: whalesay
+                  inputs:
+                    parameters:
+                    - name: message
+                    # - name: stage
+                    # - name: argocdApp
+                  container:
+                    image: docker/whalesay:latest
+                    command: [cowsay]
+                    args: ["{{inputs.parameters.message}}\n Kargo stage: {{inputs.parameters.stage}}\n ArgoCDapp name: {{workflow.parameters.argocdApp}}"]
           parameters:
             - src:
                 dependencyName: test-dep
@@ -45,7 +55,3 @@ spec:
                 dependencyName: test-dep
                 dataKey: body.argoCDapp_name
               dest: spec.arguments.parameters.2.value
-
-
-
-# spec.arguments.parameters[0].name is required

@@ -38,6 +38,7 @@ rules:
   - eventbus/finalizers
   - eventbus/status
   - workflows
+  - workflowtemplates
   verbs:
   - create
   - delete
